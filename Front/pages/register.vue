@@ -35,8 +35,8 @@ export default {
            form:{
                email:"1126424282@qq.com",
                nickname:'lulu',
-               passwd:'lushuyan910203',
-               repasswd:'lushuyan910203',
+               passwd:'lushuyan',
+               repasswd:'lushuyan',
                captcha:''
            },
            rules:{

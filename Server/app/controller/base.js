@@ -1,26 +1,26 @@
-//定制规范  在后他的controller和业务controller之间加了一层
+// 定制规范  在后他的controller和业务controller之间加了一层
 
-const {Controller} = require('egg')
-class BaseController extends Controller{
-    success(data){
-      this.ctx.body = {
-          code:0,
-          data
-      }
+const { Controller } = require('egg')
+class BaseController extends Controller {
+  success(data) {
+    this.ctx.body = {
+      code: 0,
+      data,
     }
-    message(message){
-      this.ctx.body = {
-          code:0,
-          message
-      }
+  }
+  message(message) {
+    this.ctx.body = {
+      code: 0,
+      message,
     }
-    error(message,code=-1,errors={}){
-      this.ctx.body = {
-          code,
-          message,
-          errors
-      }
+  }
+  error(message, code = -1, errors = {}) {
+    this.ctx.body = {
+      code,
+      message,
+      errors,
     }
+  }
 }
 
 module.exports = BaseController

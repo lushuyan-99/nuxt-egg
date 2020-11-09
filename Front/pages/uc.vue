@@ -46,10 +46,10 @@ export default {
        }
    },
    computed: {
-      cubeWidth(){
+      cubeWidth(){   //计算当前上传矩阵的宽度
       return  Math.ceil(Math.sqrt(this.chunks.length))*16
     },
-    uploadProgress(){
+    uploadProgress(){  //计算上传的进度
       if(!this.file || this.chunks.length){
         return 0
       }
@@ -61,10 +61,10 @@ export default {
   async mounted () {
        const ret = await this.$http.get('/user/info')
     //    console.log(ret)
-       this.bindEvents()
+       this.bindEvents()   //执行绑定函数
    },
    methods: {
-       bindEvents(){
+       bindEvents(){  //绑定事件
            const drag = this.$refs.drag
            drag.addEventListener('dragover',e=>{
              drag.style.borderColor = 'red'
@@ -83,7 +83,7 @@ export default {
                console.log(this.file)
            })
        },
-      async blobToString(blob){  //通过读文件的形式来实现
+      async blobToString(blob){  //这里的方法是将文件转换成ASK码并转换成字符串的形式
          return new Promise(resolve=>{
              const render = new FileReader()
              render.onload = function(){
@@ -98,7 +98,7 @@ export default {
              render.readAsBinaryString(blob)
          })
        },
-       async isGif(file){
+       async isGif(file){  //检验图片是否符合规范
          //47494638   gif的文件头
          //进行16进制的转换
          const ret = await this.blobToString(file.slice(0,6))
@@ -188,7 +188,7 @@ export default {
        
      },
 
-     async calculateHashWorker(){   //这里进行hash计算
+     async calculateHashWorker(){   //这里进行hash计算，通过web-worker的形式
      console.log(777)
        return new Promise(resolve=>{
            this.worker = new Worker('/hash.js')  //这里相当于开了一个新的进程，详情查看阮一峰文档
@@ -262,9 +262,9 @@ export default {
         this.hash = hash
         console.log(hash);
          console.log(99999)
-        const chunks  = this.createFileChunk(this.file)
+        const chunks  = this.createFileChunk(this.file)   //将文件分割成多个chuanks片段
         console.log(chunks)
-        this.chunks = chunks.map((chunk,index)=>{
+        this.chunks = chunks.map((chunk,index)=>{     //给每个chunk片段进行标记
             //切片的名字 = hash+index
             const name = this.hash + '-'+ index
             const hash = this.hash
@@ -327,7 +327,7 @@ export default {
     //  上传可能报错
     // 报错之后，进度条变红，开始重试
     // 一个切片重试失败三次，整体全部终止
-    async sendRequest(chunks,limit=4){
+    async sendRequest(chunks,limit=4){   //异步请求的并发数的控制
     //  limit是并发数
     // 一个数组长度是limit
     // [task12,task13,task4]
